@@ -2,6 +2,7 @@ from api.services.aliexpress import AliExpressScraper
 from api.services.groq_service import GroqService
 from api.services.ebay import EbayService
 from api.services.daraz import DarazService
+from api.services.image_service import ImageService
 from api.db.models.product import Product
 from sqlalchemy.orm import Session
 import logging
@@ -14,6 +15,7 @@ class ListingManager:
         self.groq = GroqService()
         self.ebay = EbayService()
         self.daraz = DarazService()
+        self.image_service = ImageService()
 
     async def list_product_on_marketplaces(self, product_id: int):
         """
@@ -31,10 +33,15 @@ class ListingManager:
         # 2. Price Markup (1.5x)
         markup_price = product.supplier_price * 1.5
         
+        # 3. Handle Images
+        logger.info(f"Downloading images for product {product_id}")
+        local_images = self.image_service.optimize_images([product.image_url])
+        
         listing_data = {
             "title": rewritten["title"],
             "description": rewritten["description"],
             "image_url": product.image_url,
+            "local_images": local_images,
             "stock": 10, # Default stock
             "price": markup_price
         }
