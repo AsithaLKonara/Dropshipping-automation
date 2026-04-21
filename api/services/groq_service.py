@@ -1,5 +1,5 @@
 from groq import Groq
-from app.core.config import settings
+from api.core.config import settings
 import logging
 
 logger = logging.getLogger(__name__)

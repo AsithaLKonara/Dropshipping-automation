@@ -39,35 +39,26 @@ The project is built with a modular, scalable architecture:
 
 ---
 
-## 🚀 Getting Started
+## 🚀 Deployment
 
-### Prerequisites
-*   Docker & Docker Compose installed.
-*   API keys for **Groq**, **eBay**, and **Daraz** (optional for core features).
+### Vercel (Recommended)
+This project is optimized for deployment on Vercel.
 
-### Installation
+1.  **Push to GitHub**: Push your code to a GitHub repository.
+2.  **Import to Vercel**: Connect your repository to Vercel.
+3.  **Environment Variables**: Add your `DATABASE_URL` (Postgres) and `GROQ_API_KEY` in the Vercel dashboard.
+4.  **Deploy**: Vercel will automatically detect the `vercel.json` and deploy both the frontend and the FastAPI backend as serverless functions.
 
-1.  **Clone the repository:**
+### Local Development (without Docker)
+1.  **Install dependencies**:
     ```bash
-    git clone https://github.com/AsithaLKonara/Dropshipping-automation.git
-    cd Dropshipping-automation
+    pip install -r requirements.txt
     ```
-
-2.  **Configure Environment Variables:**
-    Create a `.env` file in the root directory:
-    ```env
-    POSTGRES_USER=postgres
-    POSTGRES_PASSWORD=postgres
-    POSTGRES_DB=dropshipping
-    REDIS_URL=redis://redis:6379/0
-    DATABASE_URL=postgresql://postgres:postgres@db:5432/dropshipping
-    GROQ_API_KEY=your_groq_api_key
-    ```
-
-3.  **Start the system:**
+2.  **Run FastAPI**:
     ```bash
-    docker-compose up --build
+    uvicorn api.main:app --reload
     ```
+3.  **Open index.html**: Open the root `index.html` in your browser.
 
 ---
 

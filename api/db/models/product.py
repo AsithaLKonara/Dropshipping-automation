@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, Float, DateTime, Text
 from sqlalchemy.sql import func
-from app.db.base_class import Base
+from api.db.base_class import Base
 
 class Product(Base):
     id = Column(Integer, primary_key=True, index=True)

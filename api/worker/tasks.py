@@ -1,9 +1,9 @@
-from app.worker.celery_app import celery_app
-from app.services.aliexpress import AliExpressScraper
-from app.services.listing_manager import ListingManager
-from app.services.order_manager import OrderManager
-from app.db.session import SessionLocal
-from app.db.models.product import Product
+from api.worker.celery_app import celery_app
+from api.services.aliexpress import AliExpressScraper
+from api.services.listing_manager import ListingManager
+from api.services.order_manager import OrderManager
+from api.db.session import SessionLocal
+from api.db.models.product import Product
 import asyncio
 import logging
 

@@ -1,8 +1,8 @@
-from app.services.aliexpress import AliExpressScraper
-from app.services.groq_service import GroqService
-from app.services.ebay import EbayService
-from app.services.daraz import DarazService
-from app.db.models.product import Product
+from api.services.aliexpress import AliExpressScraper
+from api.services.groq_service import GroqService
+from api.services.ebay import EbayService
+from api.services.daraz import DarazService
+from api.db.models.product import Product
 from sqlalchemy.orm import Session
 import logging
 

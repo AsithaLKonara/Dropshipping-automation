@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from app.api import products, orders
+from api.api import products, orders
 
 router = APIRouter()
 

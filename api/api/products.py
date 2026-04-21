@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, BackgroundTasks
 from sqlalchemy.orm import Session
-from app.db.deps import get_db
-from app.db.models.product import Product
-from app.worker.tasks import scrape_aliexpress_products, list_product_task
+from api.db.deps import get_db
+from api.db.models.product import Product
+from api.worker.tasks import scrape_aliexpress_products, list_product_task
 from pydantic import BaseModel
 from typing import List
 

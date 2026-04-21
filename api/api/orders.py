@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from app.db.deps import get_db
-from app.db.models.order import Order
-from app.worker.tasks import sync_orders_task, process_orders_task
+from api.db.deps import get_db
+from api.db.models.order import Order
+from api.worker.tasks import sync_orders_task, process_orders_task
 from typing import List
 from pydantic import BaseModel
 

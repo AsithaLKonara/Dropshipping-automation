@@ -1,4 +1,4 @@
-from app.db.models.order import Order
+from api.db.models.order import Order
 from sqlalchemy.orm import Session
 import logging
 

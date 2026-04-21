@@ -1,7 +1,7 @@
-from app.db.models.order import Order
-from app.db.models.product import Product
-from app.services.ebay import EbayService
-from app.services.daraz import DarazService
+from api.db.models.order import Order
+from api.db.models.product import Product
+from api.services.ebay import EbayService
+from api.services.daraz import DarazService
 from sqlalchemy.orm import Session
 import logging
 

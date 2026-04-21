@@ -1,5 +1,5 @@
 from celery import Celery
-from app.core.config import settings
+from api.core.config import settings
 
 celery_app = Celery(
     "worker",
@@ -16,4 +16,4 @@ celery_app.conf.update(
 )
 
 # Autodiscover tasks from the tasks module
-celery_app.autodiscover_tasks(["app.worker"], force=True)
+celery_app.autodiscover_tasks(["api.worker"], force=True)
