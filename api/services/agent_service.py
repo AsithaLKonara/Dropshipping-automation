@@ -1,7 +1,7 @@
 import json
 import logging
 from api.services.groq_service import GroqService
-from api.worker.tasks import scrape_aliexpress_task, list_product_task
+from api.worker.tasks import scrape_aliexpress_products, list_product_task
 from api.services.analytics_service import AnalyticsService
 from api.db.session import SessionLocal
 
@@ -79,7 +79,7 @@ class AgentService:
                     logger.info(f"AI Agent triggering tool: {function_name} with {function_args}")
                     
                     if function_name == "scrape_aliexpress":
-                        scrape_aliexpress_task.delay(function_args["keyword"], function_args.get("limit", 10))
+                        scrape_aliexpress_products.delay(function_args["keyword"], function_args.get("limit", 10))
                         return {"role": "assistant", "content": f"🚀 I've started a background task to scrape AliExpress for '{function_args['keyword']}'. I'll notify you when it's done!"}
                     
                     elif function_name == "list_product":

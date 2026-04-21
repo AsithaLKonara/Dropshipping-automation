@@ -4,9 +4,9 @@ import os
 
 router = APIRouter()
 
-# Admin credentials as requested
-ADMIN_EMAIL = "asithalakmalkonara11992081@gmail.com"
-ADMIN_PASSWORD = "A11992081s"
+# Admin credentials from environment variables
+ADMIN_EMAIL = os.getenv("ADMIN_EMAIL", "asithalakmalkonara11992081@gmail.com")
+ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD", "A11992081s")
 
 class LoginRequest(BaseModel):
     email: str
