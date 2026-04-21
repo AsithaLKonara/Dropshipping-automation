@@ -53,5 +53,16 @@ services:
       - db
       - redis
 
+  frontend:
+    image: nginx:alpine
+    container_name: dropshipping_frontend
+    restart: always
+    ports:
+      - "3000:80"
+    volumes:
+      - ./frontend:/usr/share/nginx/html
+    depends_on:
+      - api
+
 volumes:
   postgres_data:
