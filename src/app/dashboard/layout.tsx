@@ -1,8 +1,8 @@
 "use client";
 
-import { LayoutDashboard, Package, ShoppingCart, Search, Settings, Bell, Search as SearchIcon, Bot } from "lucide-react";
+import { LayoutDashboard, Package, ShoppingCart, Search, Settings, Bell, Search as SearchIcon, Bot, LogOut } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function DashboardLayout({
   children,
@@ -10,6 +10,16 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    try {
+      await fetch("/api/v1/auth/logout", { method: "POST" });
+      router.push("/login");
+    } catch (error) {
+      console.error("Logout failed", error);
+    }
+  };
 
   const navItems = [
     { icon: LayoutDashboard, label: "Overview", href: "/dashboard" },
@@ -48,6 +58,16 @@ export default function DashboardLayout({
             );
           })}
         </nav>
+
+        <div className="mt-auto pt-6 border-t border-white/5">
+          <button 
+            onClick={handleLogout}
+            className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-500 hover:text-red-400 hover:bg-red-500/5 transition-all group"
+          >
+            <LogOut className="w-5 h-5 group-hover:rotate-12 transition-transform" />
+            <span className="font-medium">Log Out</span>
+          </button>
+        </div>
       </aside>
 
       {/* Main Content */}
