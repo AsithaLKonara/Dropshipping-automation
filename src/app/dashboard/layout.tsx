@@ -1,6 +1,6 @@
 "use client";
 
-import { LayoutDashboard, Package, ShoppingCart, Search, Settings, Bell, Search as SearchIcon } from "lucide-react";
+import { LayoutDashboard, Package, ShoppingCart, Search, Settings, Bell, Search as SearchIcon, Bot } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -16,6 +16,7 @@ export default function DashboardLayout({
     { icon: Package, label: "Products", href: "/dashboard/products" },
     { icon: ShoppingCart, label: "Orders", href: "/dashboard/orders" },
     { icon: Search, label: "Scraper", href: "/dashboard/scraper" },
+    { icon: Bot, label: "AI Agent", href: "/dashboard/ai-agent" },
     { icon: Settings, label: "Settings", href: "/dashboard/settings" },
   ];
 
