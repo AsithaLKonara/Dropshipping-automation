@@ -1,83 +1,36 @@
-# 🚀 Dropshipping Automation System
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-An end-to-end automated dropshipping platform designed to streamline product research, listing management, and order fulfillment.
+## Getting Started
 
-## 🧭 Project Goal
+First, run the development server:
 
-This system automates the tedious parts of dropshipping:
-*   **AliExpress Product Research**: Automatically find profitable products using custom filters.
-*   **Smart Listing**: Use AI (Groq LLM) to rewrite product titles/descriptions and list them on eBay/Daraz with a 1.5x price markup.
-*   **Order Fulfillment**: Synchronize marketplace orders and automate supplier ordering.
-*   **Tracking Sync**: Automatically update tracking numbers once suppliers ship products.
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
----
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## 🏗 System Architecture
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-The project is built with a modular, scalable architecture:
-*   **Backend**: FastAPI (Python 3.11)
-*   **Task Queue**: Celery + Redis for background processing.
-*   **Database**: PostgreSQL 15.
-*   **Automation**: Playwright (for scraping and order automation).
-*   **AI Engine**: Groq (Llama 3) for copywriting and support.
-*   **Containerization**: Docker & Docker Compose.
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
----
+## Learn More
 
-## 🛠 Tech Stack
+To learn more about Next.js, take a look at the following resources:
 
-| Component | Technology |
-| :--- | :--- |
-| **Language** | Python 3.11 |
-| **Web Framework** | FastAPI |
-| **Database** | PostgreSQL |
-| **Caching/Queue** | Redis |
-| **Async Tasks** | Celery |
-| **Scraping** | Playwright, BeautifulSoup4 |
-| **AI Rewrite** | Groq (Llama 3) |
-| **Containerization**| Docker |
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
----
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## 🚀 Deployment
+## Deploy on Vercel
 
-### Vercel (Recommended)
-This project is optimized for deployment on Vercel.
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-1.  **Push to GitHub**: Push your code to a GitHub repository.
-2.  **Import to Vercel**: Connect your repository to Vercel.
-3.  **Environment Variables**: Add your `DATABASE_URL` (Postgres) and `GROQ_API_KEY` in the Vercel dashboard.
-4.  **Deploy**: Vercel will automatically detect the `vercel.json` and deploy both the frontend and the FastAPI backend as serverless functions.
-
-### Local Development (without Docker)
-1.  **Install dependencies**:
-    ```bash
-    pip install -r requirements.txt
-    ```
-2.  **Run FastAPI**:
-    ```bash
-    uvicorn api.main:app --reload
-    ```
-3.  **Open index.html**: Open the root `index.html` in your browser.
-
----
-
-## 📈 API Endpoints
-
-Once running, you can access the interactive API docs at `http://localhost:8000/docs`.
-
-### Product Research
-*   `POST /api/v1/products/scrape`: Trigger a background scrape for a keyword.
-*   `GET /api/v1/products/`: List all scraped products.
-
-### Listing Management
-*   `POST /api/v1/products/{product_id}/list`: Optimize and list a product on marketplaces.
-
-### Order Processing
-*   `POST /api/v1/orders/sync`: Fetch new orders from eBay/Daraz.
-*   `POST /api/v1/orders/process`: Automate AliExpress orders for pending items.
-
----
-
-## ⚖️ License
-This project is for educational and personal use. Please ensure you comply with the Terms of Service of AliExpress, eBay, and Daraz.
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
