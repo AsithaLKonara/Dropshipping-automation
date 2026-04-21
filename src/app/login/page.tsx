@@ -1,83 +1,113 @@
 "use client";
 
 import { useState } from "react";
-import { Lock, User, ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
+import { Lock, Mail, Loader2, ArrowRight } from "lucide-react";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+  const router = useRouter();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Implement NextAuth signin
-    console.log("Login attempt", { email, password });
+    setIsLoading(true);
+    setError("");
+
+    try {
+      const res = await fetch("/api/v1/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        // Redirect to dashboard on success
+        router.push("/dashboard");
+      } else {
+        setError(data.detail || "Invalid email or password");
+      }
+    } catch (err) {
+      setError("Connection failed. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
-    <div className="min-h-screen bg-[#020617] flex items-center justify-center p-4">
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-[20%] -left-[10%] w-[60%] h-[60%] bg-indigo-500/10 rounded-full blur-[120px]" />
-        <div className="absolute -bottom-[20%] -right-[10%] w-[60%] h-[60%] bg-purple-500/10 rounded-full blur-[120px]" />
-      </div>
-
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="w-full max-w-md relative"
-      >
-        <div className="bg-slate-900/50 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl">
-          <div className="flex flex-col items-center mb-10">
-            <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-indigo-500/20">
-              <Lock className="text-white w-8 h-8" />
-            </div>
-            <h1 className="text-3xl font-bold text-white tracking-tight">Admin Portal</h1>
-            <p className="text-slate-400 mt-2 text-center">Enter your credentials to access the automation engine.</p>
+    <div className="min-h-screen bg-[#020617] flex items-center justify-center p-6">
+      <div className="w-full max-w-md space-y-8">
+        <div className="text-center space-y-2">
+          <div className="inline-flex p-3 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 mb-4">
+            <Lock className="w-8 h-8 text-indigo-500" />
           </div>
+          <h1 className="text-4xl font-bold text-white tracking-tight">Admin Portal</h1>
+          <p className="text-slate-500">Secure access to AutoDrop engine</p>
+        </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="bg-slate-900/50 backdrop-blur-xl border border-white/5 p-8 rounded-3xl shadow-2xl space-y-6">
+          <form onSubmit={handleLogin} className="space-y-5">
             <div className="space-y-2">
-              <label className="text-sm font-medium text-slate-300 ml-1">Username</label>
+              <label className="text-sm font-medium text-slate-400 ml-1">Email Address</label>
               <div className="relative">
-                <User className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 w-5 h-5" />
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
                 <input 
-                  type="text" 
+                  type="email" 
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full bg-slate-950/50 border border-white/5 rounded-xl py-3 px-12 text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all"
+                  className="w-full bg-slate-950 border border-white/5 rounded-2xl py-3 px-12 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all"
                   placeholder="admin@autodrop.io"
+                  required
                 />
               </div>
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-medium text-slate-300 ml-1">Password</label>
+              <label className="text-sm font-medium text-slate-400 ml-1">Password</label>
               <div className="relative">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 w-5 h-5" />
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
                 <input 
                   type="password" 
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full bg-slate-950/50 border border-white/5 rounded-xl py-3 px-12 text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all"
+                  className="w-full bg-slate-950 border border-white/5 rounded-2xl py-3 px-12 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all"
                   placeholder="••••••••"
+                  required
                 />
               </div>
             </div>
 
+            {error && (
+              <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm text-center">
+                {error}
+              </div>
+            )}
+
             <button 
               type="submit"
-              className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-semibold py-4 rounded-xl shadow-lg shadow-indigo-500/25 flex items-center justify-center gap-2 group transition-all"
+              disabled={isLoading}
+              className="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3.5 rounded-2xl transition-all shadow-lg shadow-indigo-500/20 flex items-center justify-center gap-2 group"
             >
-              Sign In 
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              {isLoading ? (
+                <Loader2 className="w-5 h-5 animate-spin" />
+              ) : (
+                <>
+                  Sign In
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </>
+              )}
             </button>
           </form>
-
-          <div className="mt-8 pt-8 border-t border-white/5 text-center">
-            <p className="text-slate-500 text-sm">Protected by AutoDrop Security</p>
-          </div>
         </div>
-      </motion.div>
+
+        <p className="text-center text-slate-600 text-sm">
+          Protected by enterprise-grade encryption
+        </p>
+      </div>
     </div>
   );
 }
