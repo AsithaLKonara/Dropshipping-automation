@@ -11,5 +11,7 @@ class Order(Base):
     total_price = Column(Float)
     status = Column(String, default="PENDING") # PENDING, ORDERED, SHIPPED, COMPLETED
     supplier_order_id = Column(String, nullable=True)
+    supplier_cost = Column(Float, nullable=True)
+    profit = Column(Float, nullable=True)
     tracking_number = Column(String, nullable=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
