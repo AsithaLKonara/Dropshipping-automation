@@ -61,7 +61,7 @@ class AgentService:
 
         try:
             response = self.groq.client.chat.completions.create(
-                model="llama3-8b-8192",
+                model="llama-3.1-8b-instant",
                 messages=messages,
                 tools=self.get_tools(),
                 tool_choice="auto"
