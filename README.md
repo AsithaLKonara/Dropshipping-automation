@@ -1,36 +1,96 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 AutoDrop: AI-Powered Dropshipping Automation
 
-## Getting Started
+AutoDrop is a state-of-the-art, end-to-end dropshipping automation engine. It combines a high-performance **FastAPI** backend with a premium **Next.js 14** dashboard, all orchestrated by a **Groq-powered AI Agent** capable of executing complex business workflows through natural language.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🧭 Key Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 🧠 AI Command Center
+- **Natural Language Control**: Tell the AI to scrape, list, or analyze data.
+- **Function Calling**: The agent translates commands into system actions (e.g., *"Scrape 20 tech gadgets"*).
+- **Automated Copywriting**: AI rewrites product titles and descriptions for maximum SEO.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 🔍 Smart Product Research
+- **AliExpress Scraper**: Automated data extraction using Playwright.
+- **Intelligent Filters**: Skip low-rated products or low-volume sellers automatically.
+- **Image Optimization**: Local processing and optimization for marketplace standards.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 📦 Order & Inventory Management
+- **Automated Checkout**: One-click or automated supplier ordering.
+- **Tracking Sync**: Real-time synchronization of tracking numbers to marketplaces.
+- **Stock Monitor**: 24/7 monitoring of supplier availability to prevent overselling.
 
-## Learn More
+### 📈 Financial Analytics
+- **Profit Tracking**: Real-time margin and revenue calculations.
+- **Performance Metrics**: Visual dashboard for system health.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🏗 System Architecture
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Frontend**: Next.js 14 (App Router, TailwindCSS, Framer Motion).
+- **Backend API**: FastAPI (Python 3.11).
+- **Task Engine**: Celery + Redis for heavy background automation.
+- **Database**: PostgreSQL with SQLAlchemy ORM.
+- **AI Engine**: Groq (Llama 3) for intelligence and tool calling.
+- **Scraping**: Playwright (Headless Chromium).
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🚀 Getting Started
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Prerequisites
+- Node.js 18+
+- Python 3.11+
+- PostgreSQL & Redis
+- Groq API Key
+
+### Installation
+
+1.  **Clone the Repository**:
+    ```bash
+    git clone https://github.com/AsithaLKonara/Dropshipping-automation.git
+    cd Dropshipping-automation
+    ```
+
+2.  **Setup Backend**:
+    ```bash
+    pip install -r requirements.txt
+    # Install browsers for Playwright
+    playwright install chromium
+    ```
+
+3.  **Setup Frontend**:
+    ```bash
+    npm install
+    ```
+
+4.  **Environment Variables**:
+    Create a `.env` file in the root:
+    ```env
+    DATABASE_URL=postgresql://user:pass@localhost:5432/autodrop
+    REDIS_URL=redis://localhost:6379/0
+    GROQ_API_KEY=your_key_here
+    ```
+
+5.  **Run Development Stack**:
+    - **API**: `uvicorn api.main:app --reload`
+    - **Frontend**: `npm run dev`
+    - **Worker**: `celery -A api.worker.celery_app worker --loglevel=info`
+
+---
+
+## 🌍 Deployment
+
+AutoDrop is optimized for **Vercel**. 
+1. Push your code to GitHub.
+2. Import to Vercel (it will detect `vercel.json`).
+3. Set your Environment Variables in the Vercel Dashboard.
+
+---
+
+## ⚖️ License
+Personal and Educational use. Comply with the Terms of Service of all integrated platforms.
+
+*Built with ❤️ by Antigravity AI.*
