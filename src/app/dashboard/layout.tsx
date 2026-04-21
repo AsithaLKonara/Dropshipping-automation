@@ -1,13 +1,18 @@
+"use client";
+
 import { LayoutDashboard, Package, ShoppingCart, Search, Settings, Bell, Search as SearchIcon } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
+
   const navItems = [
-    { icon: LayoutDashboard, label: "Overview", href: "/dashboard", active: true },
+    { icon: LayoutDashboard, label: "Overview", href: "/dashboard" },
     { icon: Package, label: "Products", href: "/dashboard/products" },
     { icon: ShoppingCart, label: "Orders", href: "/dashboard/orders" },
     { icon: Search, label: "Scraper", href: "/dashboard/scraper" },
@@ -17,27 +22,30 @@ export default function DashboardLayout({
   return (
     <div className="flex h-screen bg-[#020617] text-white">
       {/* Sidebar */}
-      <aside className="w-64 bg-slate-950 border-right border-white/5 p-6 flex flex-col">
+      <aside className="w-64 bg-slate-950 border-r border-white/5 p-6 flex flex-col">
         <div className="flex items-center gap-3 mb-12">
           <div className="w-8 h-8 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg shadow-lg shadow-indigo-500/20" />
           <span className="text-xl font-bold bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">AutoDrop</span>
         </div>
 
         <nav className="flex-1 space-y-2">
-          {navItems.map((item) => (
-            <Link
-              key={item.label}
-              href={item.href}
-              className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
-                item.active 
-                  ? "bg-indigo-500/10 text-indigo-400 border border-indigo-500/20" 
-                  : "text-slate-500 hover:text-slate-300 hover:bg-white/5"
-              }`}
-            >
-              <item.icon className="w-5 h-5" />
-              <span className="font-medium">{item.label}</span>
-            </Link>
-          ))}
+          {navItems.map((item) => {
+            const isActive = pathname === item.href;
+            return (
+              <Link
+                key={item.label}
+                href={item.href}
+                className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
+                  isActive 
+                    ? "bg-indigo-500/10 text-indigo-400 border border-indigo-500/20" 
+                    : "text-slate-500 hover:text-slate-300 hover:bg-white/5"
+                }`}
+              >
+                <item.icon className="w-5 h-5" />
+                <span className="font-medium">{item.label}</span>
+              </Link>
+            );
+          })}
         </nav>
       </aside>
 
